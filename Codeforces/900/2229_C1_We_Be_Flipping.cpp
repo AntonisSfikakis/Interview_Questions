@@ -6,42 +6,20 @@ using namespace std;
 void solve() {
   int n;
   cin >> n;
-  vector<int> v(n);
-  vector<int> seq;
-  int operations = 0;
-  bool all_pos = true;
-  for (int i = 0; i < n; i++) {
-    cin >> v[i];
-    if (v[i] < 0) all_pos = false;
-    if (v[i] > 0 && !all_pos) {
-      operations++;
-      seq.push_back(i + 1);
-      for (int j = 0; j <= i; j++) {
-        v[j] = -v[j];
-      }
-    }
-    if (all_pos && i == n - 1) {
-      cout << "\n1\n" << n << "\n";
-      return;
-    }
-  }
+  int sgn(1);
+  vector<int> v(n), a;
+  for (int &x: v) {cin >> x;}
+  for (int p = n - 1; p>=0; p--) {
+    if (sgn * v[p] > 0) {
+      a.push_back(p+1);
+      sgn *= -1;
+    } 
+    
+  } 
+  cout << a.size() << "\n";
+  for (int x : a) {cout << x << " ";}
+  cout << endl;
 
-  for (int i = n - 2; i >= 0; i--) {
-    if (v[i] > 0) {
-      operations++;
-      seq.push_back(i + 1);
-      for (int j = 0; j <= i; j++) {
-        v[j] = -v[j];
-      }
-    }
-  }
-
-  cout << operations << "\n";
-  if (!operations) {
-    return;
-  }
-  for (int i = 0; i < seq.size(); i++)
-    cout << seq[i] << " ";
 }
 
 signed main() {
